@@ -5,6 +5,8 @@ class Servicio extends DataBoundObject {
         protected $ID;
         protected $Nombre;
         protected $Precio;
+        protected $Foto;
+        protected $Descripcion;
         protected $CategoriaID;
 
         protected function DefineTableName() {
@@ -15,6 +17,8 @@ class Servicio extends DataBoundObject {
                 return(array(
                         "id" => "ID",
                         "nombre" => "Nombre",
+                        "descripcion" => "Descripcion",
+                        "foto" => "Foto",
                         "precio" => "Precio",
                         "categoriaId" => "CategoriaID"));
         }
