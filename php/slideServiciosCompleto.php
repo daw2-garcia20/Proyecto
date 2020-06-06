@@ -12,8 +12,8 @@
 
      $html = '';
      
-     for($cont = 0; $cont < 5 ; $cont++){
-        $objServicio = new Servicio($objPDO, $servicios[$cont]);
+     foreach($servicios as $servicio){
+        $objServicio = new Servicio($objPDO, $servicio);
         $objServicio->Load();
  
             $html .= '<!-- Service -->';

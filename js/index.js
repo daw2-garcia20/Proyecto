@@ -4,7 +4,8 @@ var idServicio = 0;
 var valoracion = 0;
 
 function eventos() {
-    //obtenerServicios();
+    obtenerServicios();
+    obtenerValoraciones();
     selectorServicios();
     $("#botonEnviarValoracion").click(function() {
         event.preventDefault();
@@ -23,6 +24,14 @@ function obtenerServicios() {
         "url": "php/slideServicios.php"
     }).done(function(slider) {
         $("#servicios").html(slider);
+    });
+}
+
+function obtenerValoraciones() {
+    $.ajax({
+        "url": "php/slideValoraciones.php"
+    }).done(function(slider) {
+        $("#valoraciones").html(slider);
     });
 }
 
@@ -46,12 +55,11 @@ function enviarValoracion() {
         "valoracion": parseFloat(valoracion),
         "idServicio": parseInt(idServicio)
     };
-    console.log(opinion);
     $.ajax({
         "url": "php/enviarValoracion.php",
         "method": "POST",
         "data": opinion
     }).done(function(options) {
-        location.reload;
+        /* location.reload; */
     });
 }

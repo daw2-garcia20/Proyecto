@@ -4,6 +4,20 @@
     background-size: cover;
 }
 
+.fondoValoraciones {
+    position: absolute;
+    background-image: url("../images/testimonials.jpg");
+    background-size: cover;
+}
+
+.imagenValoracion {
+    top: 30px !important;
+}
+
+.textoValoracion {
+    margin-top: 10px;
+}
+
 @import url(//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css);
 fieldset,
 label {
