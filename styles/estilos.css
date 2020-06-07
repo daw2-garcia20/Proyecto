@@ -10,12 +10,26 @@
     background-size: cover;
 }
 
+.fondoPrecios {
+    position: absolute;
+    background-image: url("../images/pricing_background.jpg");
+    background-size: cover;
+}
+
 .imagenValoracion {
     top: 30px !important;
 }
 
 .textoValoracion {
     margin-top: 10px;
+}
+
+.tituloNoticiaBlanco {
+    color: #FFFFFF !important;
+}
+
+.tituloNoticiaBlanco:hover {
+    color: #ffc107 !important;
 }
 
 @import url(//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css);

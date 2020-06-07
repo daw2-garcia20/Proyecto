@@ -4,8 +4,8 @@ var idServicio = 0;
 var valoracion = 0;
 
 function eventos() {
-    obtenerServicios();
-    obtenerPrecios();
+    noticiasSuperior();
+    noticiaMasVista();
     selectorServicios();
     $("#botonEnviarValoracion").click(function() {
         event.preventDefault();
@@ -19,19 +19,19 @@ function eventos() {
     });
 }
 
-function obtenerServicios() {
+function noticiasSuperior() {
     $.ajax({
-        "url": "php/slideServiciosCompleto.php"
+        "url": "php/noticiasDestacadas.php"
     }).done(function(slider) {
-        $("#servicios").html(slider);
+        $("#noticiasSuperior").html(slider);
     });
 }
 
-function obtenerPrecios() {
+function noticiaMasVista() {
     $.ajax({
-        "url": "php/preciosServicios.php"
+        "url": "php/noticiaMasVista.php"
     }).done(function(slider) {
-        $("#precios").html(slider);
+        $("#noticiaMasVista").html(slider);
     });
 }
 

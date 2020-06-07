@@ -64,6 +64,29 @@ abstract class DataBoundObject {
       return $arrayID;
    }
 
+   public function LoadMoreViews(){
+         $strQuery = "SELECT ";
+           foreach ($this->arRelationMap as $key => $value) {
+            $strQuery .= "\"" . $key . "\",";
+           }
+           $strQuery = substr($strQuery, 0, strlen($strQuery)-1);
+           $strQuery .= " FROM " . $this->strTableName . " ORDER BY visitas DESC LIMIT 1";
+           $objStatement = $this->objPDO->prepare($strQuery);
+           $objStatement->execute();
+           $arRow = $objStatement->fetch(PDO::FETCH_ASSOC);
+           foreach($arRow as $key => $value) {
+               $strMember = $this->arRelationMap[$key];
+               if (property_exists($this, $strMember)) {
+                   if (is_numeric($value)) {
+                      eval('$this->'.$strMember.' = '.$value.';');
+                   } else {
+                      eval('$this->'.$strMember.' = "'.$value.'";');
+                   };
+               };
+            };
+            $this->blIsLoaded = true;
+   }
+
    public function Save() {
        $actualVal = "";
       if (isset($this->ID)) {

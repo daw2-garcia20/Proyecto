@@ -6,6 +6,8 @@ class Noticia extends DataBoundObject {
         protected $Autor;
         protected $Foto;
         protected $Titulo;
+        protected $Fecha;
+        protected $Visitas;
         protected $Descripcion;
 
         protected function DefineTableName() {
@@ -18,6 +20,8 @@ class Noticia extends DataBoundObject {
                         "autor" => "Autor",
                         "foto" => "Foto",
                         "titulo" => "Titulo",
+                        "fecha" => "Fecha",
+                        "visitas" => "Visitas",
                         "descripcion" => "Descripcion"));
         }
 }

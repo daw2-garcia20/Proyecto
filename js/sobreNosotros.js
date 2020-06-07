@@ -4,8 +4,6 @@ var idServicio = 0;
 var valoracion = 0;
 
 function eventos() {
-    obtenerServicios();
-    obtenerPrecios();
     selectorServicios();
     $("#botonEnviarValoracion").click(function() {
         event.preventDefault();
@@ -16,22 +14,6 @@ function eventos() {
     });
     $(".puntoValoracion").click(function() {
         valoracion = $(this).val();
-    });
-}
-
-function obtenerServicios() {
-    $.ajax({
-        "url": "php/slideServiciosCompleto.php"
-    }).done(function(slider) {
-        $("#servicios").html(slider);
-    });
-}
-
-function obtenerPrecios() {
-    $.ajax({
-        "url": "php/preciosServicios.php"
-    }).done(function(slider) {
-        $("#precios").html(slider);
     });
 }
 
