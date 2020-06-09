@@ -14,6 +14,8 @@
     <link rel="stylesheet" type="text/css" href="plugins/OwlCarousel2-2.2.1/animate.css">
     <link rel="stylesheet" type="text/css" href="styles/articles.css">
     <link rel="stylesheet" type="text/css" href="styles/articles_responsive.css">
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/css/bootstrap-datepicker.min.css">
+    <link rel="stylesheet" type="text/css" href="styles/clockpicker.css">
     <link rel="stylesheet" type="text/css" href="styles/estilos.css">
 </head>
 
@@ -63,19 +65,15 @@
                 <div class="app_content d-flex flex-column align-items-start justify-content-center">
                     <div class="app_form_container text-right">
                         <form action="#" id="app_form" class="app_form">
-                            <input type="text" class="app_input" placeholder="Nombre" required="required">
-                            <input type="text" class="app_input" placeholder="Apellidos" required="required">
-                            <input type="email" class="app_input" placeholder="Correo electrónico" required="required">
-                            <input type="text" class="app_input" placeholder="Teléfono" required="required">
-                            <input type="text" class="app_input" placeholder="Fecha" required="required">
-                            <select class="app_input app_select">
-							<option disabled="" selected="">Selecciona un servicio.</option>
-							<option>Service 1</option>
-							<option>Service 2</option>
-							<option>Service 3</option>
-							<option>Service 4</option>
-						</select>
-                            <button class="app_form_button">Enviar</button>
+                            <input id="nombreReserva" type="text" class="app_input" placeholder="Nombre" required="required">
+                            <input id="apellidosReserva" type="text" class="app_input" placeholder="Apellidos" required="required">
+                            <input id="emailReserva" type="email" class="app_input" placeholder="Correo electrónico" required="required">
+                            <input id="telefonoReserva" type="text" class="app_input" placeholder="Teléfono" required="required">
+                            <input id="fecha" type="text" class="app_input" placeholder="Fecha" required="required">
+                            <input id="hora" type="time" class="app_input" placeholder="Hora" required="required">
+                            <select id="selectReserva" class="app_input app_select" required>
+                            </select>
+                            <button id="enviarReserva" class="app_form_button">Enviar</button>
                         </form>
                     </div>
                 </div>
@@ -172,145 +170,9 @@
                 <div class="col">
                     <div class="section_expander">
                         <div class="articles_container d-flex flex-row align-items-start justify-content-between flex-wrap">
+                            <div id="todasNoticias" class="row justify-content-center">
 
-                            <!-- Article -->
-                            <!-- <div class="article">
-                                <div class="article_image"><img src="images/article_1.jpg" alt=""></div>
-                                <div class="article_container">
-                                    <div class="article_title_container d-flex flex-row align-items-start justify-content-start">
-                                        <div>
-                                            <div class="article_author_image">
-                                                <a href="#"><img src="images/article_author_1.jpg" alt=""></a>
-                                            </div>
-                                        </div>
-                                        <div class="article_content">
-                                            <div class="article_date"><a href="#">06 sep 2018</a></div>
-                                            <div class="article_title"><a href="#">Lorem ipsum dolor sit amet, consectetur</a></div>
-                                            <div class="article_author"><a href="#">by Jane Doe</a></div>
-                                        </div>
-                                    </div>
-                                    <div class="article_text">
-                                        <p>Nulla tincidunt elementum mauris, id suscipit ipsum posuere eget. Maecenas blandit tempus massa, a bibendum eros facilisis eu. Suspendisse fermentum pretium lectus, nec vehicula tortor.</p>
-                                    </div>
-                                    <div class="article_link"><a href="#">continue reading</a></div>
-                                </div>
-                            </div> -->
-
-                            <!-- Article -->
-                            <!-- <div class="article">
-                                <div class="article_image"><img src="images/article_2.jpg" alt=""></div>
-                                <div class="article_container">
-                                    <div class="article_title_container d-flex flex-row align-items-start justify-content-start">
-                                        <div>
-                                            <div class="article_author_image">
-                                                <a href="#"><img src="images/article_author_1.jpg" alt=""></a>
-                                            </div>
-                                        </div>
-                                        <div class="article_content">
-                                            <div class="article_date"><a href="#">06 sep 2018</a></div>
-                                            <div class="article_title"><a href="#">Nulla molestie sit amet ex consectetur</a></div>
-                                            <div class="article_author"><a href="#">by Jane Doe</a></div>
-                                        </div>
-                                    </div>
-                                    <div class="article_text">
-                                        <p>Nulla tincidunt elementum mauris, id suscipit ipsum posuere eget. Maecenas blandit tempus massa, a bibendum eros facilisis eu. Suspendisse fermentum pretium lectus, nec vehicula tortor.</p>
-                                    </div>
-                                    <div class="article_link"><a href="#">continue reading</a></div>
-                                </div>
-                            </div> -->
-
-                            <!-- Article -->
-                            <!-- <div class="article">
-                                <div class="article_image"><img src="images/article_3.jpg" alt=""></div>
-                                <div class="article_container">
-                                    <div class="article_title_container d-flex flex-row align-items-start justify-content-start">
-                                        <div>
-                                            <div class="article_author_image">
-                                                <a href="#"><img src="images/article_author_1.jpg" alt=""></a>
-                                            </div>
-                                        </div>
-                                        <div class="article_content">
-                                            <div class="article_date"><a href="#">06 sep 2018</a></div>
-                                            <div class="article_title"><a href="#">Estibulum ante ipsum primis</a></div>
-                                            <div class="article_author"><a href="#">by Jane Doe</a></div>
-                                        </div>
-                                    </div>
-                                    <div class="article_text">
-                                        <p>Nulla tincidunt elementum mauris, id suscipit ipsum posuere eget. Maecenas blandit tempus massa, a bibendum eros facilisis eu. Suspendisse fermentum pretium lectus, nec vehicula tortor.</p>
-                                    </div>
-                                    <div class="article_link"><a href="#">continue reading</a></div>
-                                </div>
-                            </div> -->
-
-                            <!-- Article -->
-                            <!--                             <div class="article">
-                                <div class="article_image"><img src="images/article_4.jpg" alt=""></div>
-                                <div class="article_container">
-                                    <div class="article_title_container d-flex flex-row align-items-start justify-content-start">
-                                        <div>
-                                            <div class="article_author_image">
-                                                <a href="#"><img src="images/article_author_1.jpg" alt=""></a>
-                                            </div>
-                                        </div>
-                                        <div class="article_content">
-                                            <div class="article_date"><a href="#">06 sep 2018</a></div>
-                                            <div class="article_title"><a href="#">Curabitur velit diam, blandit quis </a></div>
-                                            <div class="article_author"><a href="#">by Jane Doe</a></div>
-                                        </div>
-                                    </div>
-                                    <div class="article_text">
-                                        <p>Nulla tincidunt elementum mauris, id suscipit ipsum posuere eget. Maecenas blandit tempus massa, a bibendum eros facilisis eu. Suspendisse fermentum pretium lectus, nec vehicula tortor.</p>
-                                    </div>
-                                    <div class="article_link"><a href="#">continue reading</a></div>
-                                </div>
-                            </div> -->
-
-                            <!-- Article -->
-                            <!--                             <div class="article">
-                                <div class="article_image"><img src="images/article_5.jpg" alt=""></div>
-                                <div class="article_container">
-                                    <div class="article_title_container d-flex flex-row align-items-start justify-content-start">
-                                        <div>
-                                            <div class="article_author_image">
-                                                <a href="#"><img src="images/article_author_1.jpg" alt=""></a>
-                                            </div>
-                                        </div>
-                                        <div class="article_content">
-                                            <div class="article_date"><a href="#">06 sep 2018</a></div>
-                                            <div class="article_title"><a href="#">Suspendisse vel ligula sed selit</a></div>
-                                            <div class="article_author"><a href="#">by Jane Doe</a></div>
-                                        </div>
-                                    </div>
-                                    <div class="article_text">
-                                        <p>Nulla tincidunt elementum mauris, id suscipit ipsum posuere eget. Maecenas blandit tempus massa, a bibendum eros facilisis eu. Suspendisse fermentum pretium lectus, nec vehicula tortor.</p>
-                                    </div>
-                                    <div class="article_link"><a href="#">continue reading</a></div>
-                                </div>
                             </div>
- -->
-                            <!-- Article -->
-                            <!--                             <div class="article">
-                                <div class="article_image"><img src="images/article_6.jpg" alt=""></div>
-                                <div class="article_container">
-                                    <div class="article_title_container d-flex flex-row align-items-start justify-content-start">
-                                        <div>
-                                            <div class="article_author_image">
-                                                <a href="#"><img src="images/article_author_1.jpg" alt=""></a>
-                                            </div>
-                                        </div>
-                                        <div class="article_content">
-                                            <div class="article_date"><a href="#">06 sep 2018</a></div>
-                                            <div class="article_title"><a href="#">Donec egestas egestas quam non</a></div>
-                                            <div class="article_author"><a href="#">by Jane Doe</a></div>
-                                        </div>
-                                    </div>
-                                    <div class="article_text">
-                                        <p>Nulla tincidunt elementum mauris, id suscipit ipsum posuere eget. Maecenas blandit tempus massa, a bibendum eros facilisis eu. Suspendisse fermentum pretium lectus, nec vehicula tortor.</p>
-                                    </div>
-                                    <div class="article_link"><a href="#">continue reading</a></div>
-                                </div>
-                            </div> -->
-
                         </div>
                     </div>
                 </div>
@@ -401,7 +263,7 @@
                                     <input type="radio" class="puntoValoracion" id="star2" name="rating" value="2" /><label class="full" for="star2" title="Suficiente"></label>
                                     <input type="radio" class="puntoValoracion" id="star1half" name="rating" value="1.5" /><label class="half" for="star1half" title="Algo Decepcionante"></label>
                                     <input type="radio" class="puntoValoracion" id="star1" name="rating" value="1" /><label class="full" for="star1" title="Decepcionante"></label>
-                                    <input type="radio" class="puntoValoracion" id="starhalf" name="rating" value="half" /><label class="half" for="starhalf" title="Pésimo"></label>
+                                    <input type="radio" class="puntoValoracion" id="starhalf" name="rating" value="0.5" /><label class="half" for="starhalf" title="Pésimo"></label>
                                 </fieldset>
                                 <button id="botonEnviarValoracion" class="contact_form_button">Envíar</button>
                             </form>
@@ -437,6 +299,8 @@
     <script src="plugins/progressbar/progressbar.min.js"></script>
     <script src="plugins/parallax-js-master/parallax.min.js"></script>
     <script src="plugins/scrollTo/jquery.scrollTo.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js"></script>
+    <script src="js/clockpicker.js"></script>
     <script src="js/articles.js"></script>
     <script src="js/noticias.js"></script>
 </body>

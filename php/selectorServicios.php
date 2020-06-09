@@ -13,6 +13,8 @@
 
      $selector = "";
 
+     $selector =  '<option id="opcionReserva" value="">Selecciona un servicio.</option>';
+
      foreach($servicios as $servicio){
         $objServicio = new Servicio($objPDO, $servicio);
         $objServicio->Load();

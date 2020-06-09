@@ -3,7 +3,10 @@
 class Reserva extends DataBoundObject {
 
         protected $ID;
+        protected $Nombre;
+        protected $Apellidos;
         protected $Fecha;
+        protected $Hora;
         protected $Completada;
         protected $Cancelada;
         protected $ServicioID;
@@ -16,10 +19,13 @@ class Reserva extends DataBoundObject {
         protected function DefineRelationMap() {
                 return(array(
                         "id" => "ID",
+                        "nombre" => "Nombre",
+                        "apellidos" => "Apellidos",
                         "fecha" => "Fecha",
+                        "hora" => "Hora",
                         "completada" => "Completada",
                         "cancelada" => "Cancelada",
-                        "servicioId" => "ServicioID",
+                        "servicio_id" => "ServicioID",
                         "trabajadorId" => "TrabajadorID"));
         }
 }

@@ -1,21 +1,51 @@
 $(document).ready(eventos);
 
 var idServicio = 0;
+var idServicioReserva = 0;
 var valoracion = 0;
 
 function eventos() {
     noticiasSuperior();
     noticiaMasVista();
+    todasNoticias();
     selectorServicios();
     $("#botonEnviarValoracion").click(function() {
-        event.preventDefault();
         enviarValoracion();
     });
     $("#selectServicios").change(function() {
         idServicio = $(this).val();
     });
+    $("#selectReserva").change(function() {
+        idServicioReserva = $(this).val();
+    });
     $(".puntoValoracion").click(function() {
         valoracion = $(this).val();
+    });
+    $("#enviarReserva").click(function() {
+        enviarReserva();
+    });
+    $("#fecha").datepicker({
+        format: "dd/mm/yyyy"
+    });
+    $("#fecha").change(function() {
+        var fecha = ($(this).val());
+        var hora = $("#hora").val();
+        hora = hora.trim();
+        if (hora != "") {
+            filtrarSelector(fecha, hora);
+        }
+    });
+    $("#hora").change(function() {
+        var hora = $(this).val();
+        var fecha = $("#fecha").val();
+        fecha = fecha.trim();
+        if (fecha != "") {
+            filtrarSelector(fecha, hora);
+        }
+    });
+    $("#hora").clockpicker({
+        donetext: 'Done',
+        autoclose: true
     });
 }
 
@@ -35,11 +65,20 @@ function noticiaMasVista() {
     });
 }
 
+function todasNoticias() {
+    $.ajax({
+        "url": "php/todasNoticias.php"
+    }).done(function(slider) {
+        $("#todasNoticias").html(slider);
+    });
+}
+
 function selectorServicios() {
     $.ajax({
         "url": "php/selectorServicios.php"
     }).done(function(options) {
         $("#selectServicios").append(options);
+        $("#selectReserva").html(options);
     });
 }
 
@@ -59,7 +98,45 @@ function enviarValoracion() {
         "url": "php/enviarValoracion.php",
         "method": "POST",
         "data": opinion
+    });
+}
+
+function enviarReserva() {
+    var nombre = $("#nombreReserva").val();
+    var apellidos = $("#apellidosReserva").val();
+    var email = $("#emailReserva").val();
+    var telefono = $("#telefonoReserva").val();
+    var fecha = $("#fecha").val();
+    var hora = $("#hora").val();
+
+    var reserva = {
+        "nombre": nombre,
+        "apellidos": apellidos,
+        "email": email,
+        "telefono": telefono,
+        "fecha": fecha,
+        "hora": hora,
+        "servicioId": idServicioReserva
+    }
+
+    $.ajax({
+        "url": "php/enviarReserva.php",
+        "method": "POST",
+        "data": reserva
+    }).done(function(options) {});
+}
+
+function filtrarSelector(fecha, hora) {
+    var filtros = {
+        "fecha": fecha,
+        "hora": hora
+    };
+    $.ajax({
+        "url": "php/filtroReserva.php",
+        "method": "POST",
+        "data": filtros
     }).done(function(options) {
-        /* location.reload; */
+        console.log(options);
+        $("#selectReserva").html(options);
     });
 }

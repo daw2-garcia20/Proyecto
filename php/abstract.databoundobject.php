@@ -87,6 +87,21 @@ abstract class DataBoundObject {
             $this->blIsLoaded = true;
    }
 
+   public function obtenerFiltrados($fecha, $hora){
+      $arrayID = array();
+      $hora = str_replace(":","",$hora);
+      $query = "SELECT " . $this->strTableName . ".servicio_id FROM "  . $this->strTableName . " WHERE fecha = '" . $fecha . "' AND hora = '" . $hora . "00'";
+      $statement = $this->objPDO->prepare($query);
+      $statement->execute();
+      $result = $statement->fetchAll();
+      
+      foreach($result as $row) {
+         $arrayID[] = $row["servicio_id"];
+      };
+
+      return $arrayID; 
+   }
+
    public function Save() {
        $actualVal = "";
       if (isset($this->ID)) {

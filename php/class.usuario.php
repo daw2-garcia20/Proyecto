@@ -11,7 +11,7 @@ class Usuario extends DataBoundObject {
         protected $RolID;
 
         protected function DefineTableName() {
-                return("servicios");
+                return("usuarios");
         }
 
         protected function DefineRelationMap() {
