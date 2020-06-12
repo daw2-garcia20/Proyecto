@@ -113,7 +113,7 @@
                     <div class="page-header row no-gutters py-4">
                         <div class="col-12 col-sm-4 text-center text-sm-left mb-0">
                             <span class="text-uppercase page-subtitle">Administración</span>
-                            <h3 class="page-title">Añadir Rol</h3>
+                            <h3 class="page-title">Añadir Servicio</h3>
                         </div>
                     </div>
                     <!-- End Page Header -->
@@ -122,7 +122,12 @@
                             <form action="" method="post" id="app_form" class="app_form">
                                 <div class="form-group">
                                     <input type="text" class="form-control mb-4" name="nombre" id="nombre" placeholder="Nombre" required>
-                                    <button id="añadirRol" class="btn btn-primary">Añadir Rol</button>
+                                    <input type="text" class="form-control mb-4" name="precio" id="precio" placeholder="Precio" required>
+                                    <input type="text" class="form-control mb-4" name="descripcion" id="descripcion" placeholder="Descripcion" required>
+                                    <input type="text" class="form-control mb-4" name="foto" id="foto" placeholder="Foto" required>
+                                    <select class="form-control mb-4" name="categorias" id="categorias" required>
+                                    </select>
+                                    <button id="añadirServicio" class="btn btn-primary">Añadir Servicio</button>
                                 </div>
                             </form>
                         </div>
@@ -144,7 +149,7 @@
     <script src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js "></script>
     <script src="https://cdn.datatables.net/1.10.20/js/dataTables.bootstrap4.min.js "></script>
     <!-- <script src="scripts/app/app-blog-overview.1.1.0.js "></script> -->
-    <script src="js/añadirRol.js "></script>
+    <script src="js/añadirServicio.js "></script>
 </body>
 
 </html>

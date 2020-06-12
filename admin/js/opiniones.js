@@ -1,27 +1,27 @@
 $(document).ready(eventos);
 
-var autores = "";
+var servicios = "";
 
 function eventos() {
-    obtenerAutores();
-    obtenerNoticias();
+    obtenerServicios();
+    obtenerOpiniones();
     editar_eliminar_datatable();
 }
 
-function obtenerAutores() {
+function obtenerServicios() {
     $.ajax({
-        "url": "php/obtenerAutores.php"
-    }).done(function(autoresPHP) {
-        autores = JSON.parse(autoresPHP);
-        console.log(autores);
+        "url": "php/obtenerServicios.php"
+    }).done(function(serviciosPHP) {
+        servicios = JSON.parse(serviciosPHP);
     });
 }
 
-function obtenerNoticias() {
+function obtenerOpiniones() {
     $.ajax({
-        "url": "php/obtenerNoticias.php"
-    }).done(function(noticias) {
-        rellenarTabla(JSON.parse(noticias));
+        "url": "php/obtenerOpiniones.php"
+    }).done(function(opiniones) {
+        console.log(opiniones);
+        rellenarTabla(JSON.parse(opiniones));
     });
 }
 
@@ -40,21 +40,21 @@ function rellenarTabla(datos) {
                 "sortable": false
             },
             {
-                "title": "Titulo",
+                "title": "Nombre",
                 "targets": [1],
                 "visible": true,
                 "searchable": true,
                 "sortable": true
             },
             {
-                "title": "Foto",
+                "title": "Comentario",
                 "targets": [2],
                 "visible": true,
                 "searchable": false,
                 "sortable": false
             },
             {
-                "title": "Descripcion",
+                "title": "Valoracion",
                 "targets": [3],
                 "visible": true,
                 "searchable": true,
@@ -62,21 +62,21 @@ function rellenarTabla(datos) {
             },
 
             {
-                "title": "Autor",
+                "title": "Servicio",
                 "targets": [4],
                 "visible": true,
                 "searchable": true,
                 "sortable": true
             },
             {
-                "title": "Fecha",
+                "title": "",
                 "targets": [5],
                 "visible": true,
                 "searchable": false,
                 "sortable": false
             },
             {
-                "title": "Visitas",
+                "title": "",
                 "targets": [6],
                 "visible": true,
                 "searchable": false,
@@ -85,20 +85,6 @@ function rellenarTabla(datos) {
             {
                 "title": "",
                 "targets": [7],
-                "visible": true,
-                "searchable": false,
-                "sortable": false
-            },
-            {
-                "title": "",
-                "targets": [8],
-                "visible": true,
-                "searchable": false,
-                "sortable": false
-            },
-            {
-                "title": "",
-                "targets": [9],
                 "visible": true,
                 "searchable": false,
                 "sortable": false
@@ -111,51 +97,39 @@ function rellenarTabla(datos) {
                 }
             },
             {
-                data: "titulo",
-                render: function(titulo) {
-                    return '<input disabled class="titulo form-control position-static" type="text" value="' + titulo + '">'
+                data: "nombre",
+                render: function(nombre) {
+                    return '<input disabled class="nombre form-control position-static" type="text" value="' + nombre + '">'
                 }
             },
             {
-                data: "foto",
-                render: function(foto) {
-                    return '<input disabled class="foto form-control position-static" type="text" value="' + foto + '">'
+                data: "comentario",
+                render: function(comentario) {
+                    return '<input disabled class="comentario form-control position-static" type="text" value="' + comentario + '">'
                 }
             },
             {
-                data: "descripcion",
-                render: function(descripcion) {
-                    return '<input disabled class="descripcion form-control position-static" type="text" value="' + descripcion + '">'
+                data: "valoracion",
+                render: function(valoracion) {
+                    return '<input disabled class="valoracion form-control position-static" type="text" value="' + valoracion + '">'
                 }
             },
             {
-                data: "autor",
-                render: function(autor) {
+                data: "servicioId",
+                render: function(servicioId) {
 
-                    var selector = '<select disabled class="autor form-control">';
+                    var selector = '<select disabled class="servicio form-control">';
 
-                    Object.keys(autores).forEach(function(key) {
-                        if (autores[key].id == autor) {
-                            selector += `<option selected value="${autores[key].id}">${autores[key].nombre}</option>`;
+                    Object.keys(servicios).forEach(function(key) {
+                        if (servicios[key].id == servicioId) {
+                            selector += `<option selected value="${servicios[key].id}">${servicios[key].nombre}</option>`;
                         } else {
-                            selector += `<option value="${autores[key].id}">${autores[key].nombre}</option>`;
+                            selector += `<option value="${servicios[key].id}">${servicios[key].nombre}</option>`;
                         }
                     });
 
                     selector += '</select>';
                     return selector;
-                }
-            },
-            {
-                data: "fecha",
-                render: function(fecha) {
-                    return '<input disabled class="fecha form-control position-static" type="text" value="' + fecha + '">'
-                }
-            },
-            {
-                data: "visitas",
-                render: function(visitas) {
-                    return '<input disabled class="visitas form-control position-static" type="text" value="' + visitas + '">'
                 }
             },
             {
@@ -190,22 +164,18 @@ function editar_eliminar_datatable() {
 
         if (habilitar == 1) {
             $(this).parents("tr").find('.id').attr("disabled", false);
-            $(this).parents("tr").find('.titulo').attr("disabled", false);
-            $(this).parents("tr").find('.foto').attr("disabled", false);
-            $(this).parents("tr").find('.descripcion').attr("disabled", false);
-            $(this).parents("tr").find('.autor').attr("disabled", false);
-            $(this).parents("tr").find('.fecha').attr("disabled", false);
-            $(this).parents("tr").find('.visitas').attr("disabled", false);
+            $(this).parents("tr").find('.nombre').attr("disabled", false);
+            $(this).parents("tr").find('.comentario').attr("disabled", false);
+            $(this).parents("tr").find('.valoracion').attr("disabled", false);
+            $(this).parents("tr").find('.servicio').attr("disabled", false);
             $(this).parents("tr").find('.guardar').attr("disabled", false);
             habilitar = 0;
         } else if (habilitar == 0) {
             $(this).parents("tr").find('.id').attr("disabled", true);
-            $(this).parents("tr").find('.titulo').attr("disabled", true);
-            $(this).parents("tr").find('.foto').attr("disabled", true);
-            $(this).parents("tr").find('.descripcion').attr("disabled", true);
-            $(this).parents("tr").find('.autor').attr("disabled", true);
-            $(this).parents("tr").find('.fecha').attr("disabled", true);
-            $(this).parents("tr").find('.visitas').attr("disabled", true);
+            $(this).parents("tr").find('.nombre').attr("disabled", true);
+            $(this).parents("tr").find('.comentario').attr("disabled", true);
+            $(this).parents("tr").find('.valoracion').attr("disabled", true);
+            $(this).parents("tr").find('.servicio').attr("disabled", true);
             $(this).parents("tr").find('.guardar').attr("disabled", true);
             habilitar = 1;
         }
@@ -219,29 +189,24 @@ function editar_eliminar_datatable() {
 
             var id = tabla.row($(this).parents("tr")).data();
             id = id.id;
-            var titulo = $(this).parents("tr").find('.titulo').val();
-            var foto = $(this).parents("tr").find('.foto').val();
-            var descripcion = $(this).parents("tr").find('.descripcion').val();
-            var autor = $(this).parents("tr").find('.autor').val();
-            var fecha = $(this).parents("tr").find('.fecha').val();
-            var visitas = $(this).parents("tr").find('.visitas').val();
+            var nombre = $(this).parents("tr").find('.nombre').val();
+            var comentario = $(this).parents("tr").find('.comentario').val();
+            var valoracion = $(this).parents("tr").find('.valoracion').val();
+            var servicio = $(this).parents("tr").find('.servicio').val();
 
-            var noticia = {
+            var valoracion = {
                 id: id,
-                titulo: titulo,
-                foto: foto,
-                descripcion: descripcion,
-                autor: parseInt(autor),
-                fecha: fecha,
-                visitas: parseInt(visitas)
+                nombre: nombre,
+                comentario: comentario,
+                valoracion: valoracion,
+                servicio: parseInt(servicio)
             }
 
-
             $.ajax({
-                url: "php/modificarNoticia.php",
+                url: "php/modificarValoracion.php",
                 method: "POST",
-                data: noticia
-            }).done(function() {
+                data: valoracion
+            }).done(function(respuesta) {
                 habilitar = 1;
                 eventos();
             })
@@ -257,7 +222,7 @@ function editar_eliminar_datatable() {
             id: id
         }
         $.ajax({
-            url: "php/eliminarNoticia.php",
+            url: "php/eliminarValoracion.php",
             method: "POST",
             data: datos
         }).done(function(respuesta, textStatus) {

@@ -38,37 +38,37 @@
                 <div class="nav-wrapper">
                     <ul class="nav flex-column">
                         <li class="nav-item">
-                            <a class="nav-link active" href="index.html">
+                            <a class="nav-link" href="index.html">
                                 <i class="material-icons">person</i>
                                 <span>Usuarios</span>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="index.html">
+                            <a class="nav-link" href="roles.html">
                                 <i class="material-icons">person</i>
                                 <span>Roles</span>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link " href="components-blog-posts.html">
+                            <a class="nav-link " href="noticias.html">
                                 <i class="material-icons">vertical_split</i>
                                 <span>Noticias</span>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link " href="form-components.html">
+                            <a class="nav-link " href="reservas.html">
                                 <i class="material-icons">table_chart</i>
                                 <span>Reservas</span>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link " href="add-new-post.html">
+                            <a class="nav-link " href="servicios.html">
                                 <i class="material-icons">vertical_split</i>
                                 <span>Servicios</span>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link " href="form-components.html">
+                            <a class="nav-link " href="opiniones.html">
                                 <i class="material-icons">table_chart</i>
                                 <span>Opiniones</span>
                             </a>
@@ -113,7 +113,7 @@
                     <div class="page-header row no-gutters py-4">
                         <div class="col-12 col-sm-4 text-center text-sm-left mb-0">
                             <span class="text-uppercase page-subtitle">Administración</span>
-                            <h3 class="page-title">Añadir Usuario</h3>
+                            <h3 class="page-title">Añadir Noticia</h3>
                         </div>
                     </div>
                     <!-- End Page Header -->
@@ -121,15 +121,12 @@
                         <div class="col-6 offset-3">
                             <form action="" method="post" id="app_form" class="app_form">
                                 <div class="form-group">
-                                    <input type="text" class="form-control mb-4" name="username" id="username" placeholder="Username" required>
-                                    <input type="password" class="form-control mb-4" name="password" id="password" placeholder="Password" required>
-                                    <input type="text" class="form-control mb-4" name="nombre" id="nombre" placeholder="Nombre" required>
-                                    <input type="text" class="form-control mb-4" name="apellidos" id="apellidos" placeholder="Apellidos" required>
-                                    <label for="admin">Administrador</label>
-                                    <input type="checkbox" class="mb-4" name="admin" id="admin">
-                                    <select class="form-control mb-4" name="roles" id="roles" required>
+                                    <input type="text" class="form-control mb-4" name="titulo" id="titulo" placeholder="Titulo" required>
+                                    <input type="text" class="form-control mb-4" name="descripcion" id="descripcion" placeholder="Descripcion" required>
+                                    <input type="text" class="form-control mb-4" name="foto" id="foto" placeholder="Foto" required>
+                                    <select class="form-control mb-4" name="autores" id="autores" required>
                                     </select>
-                                    <button id="añadirUsuario" class="btn btn-primary">Añadir Usuario</button>
+                                    <button id="añadirNoticia" class="btn btn-primary">Añadir Noticia</button>
                                 </div>
                             </form>
                         </div>
@@ -151,7 +148,7 @@
     <script src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js "></script>
     <script src="https://cdn.datatables.net/1.10.20/js/dataTables.bootstrap4.min.js "></script>
     <!-- <script src="scripts/app/app-blog-overview.1.1.0.js "></script> -->
-    <script src="js/añadirUsuario.js "></script>
+    <script src="js/añadirNoticia.js "></script>
 </body>
 
 </html>
