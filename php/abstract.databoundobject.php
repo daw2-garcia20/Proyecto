@@ -102,6 +102,17 @@ abstract class DataBoundObject {
       return $arrayID; 
    }
 
+   public function inicioSesion($usuario,$password){
+      $query = "SELECT " . $this->strTableName . ".id FROM "  . $this->strTableName . " WHERE username = '" . $usuario . "' AND password = '" . $password . "'";
+      $statement = $this->objPDO->prepare($query);
+      $statement->execute();
+      $result = $statement->fetchAll();
+      
+      $id = $result[0]['id'];
+
+      return $id;
+   }
+
    public function Save() {
        $actualVal = "";
       if (isset($this->ID)) {

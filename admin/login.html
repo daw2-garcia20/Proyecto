@@ -25,6 +25,7 @@
     <link rel="stylesheet" type="text/css" href="vendor/daterangepicker/daterangepicker.css">
     <!--===============================================================================================-->
     <link rel="stylesheet" type="text/css" href="css/util.css">
+    <link rel="stylesheet" type="text/css" href="http://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.css">
     <link rel="stylesheet" type="text/css" href="css/main.css">
     <!--===============================================================================================-->
 </head>
@@ -40,30 +41,24 @@
 					</span>
 
 
-                    <div class="wrap-input100 validate-input" data-validate="Valid email is required: ex@abc.xyz">
-                        <input class="input100" type="text" name="email">
+                    <div class="wrap-input100">
+                        <input id="username" class="input100" type="text" name="email">
                         <span class="focus-input100"></span>
-                        <span class="label-input100">Email</span>
+                        <span class="label-input100">Username</span>
                     </div>
 
 
                     <div class="wrap-input100 validate-input" data-validate="Password is required">
-                        <input class="input100" type="password" name="pass">
+                        <input id="password" class="input100" type="password" name="pass">
                         <span class="focus-input100"></span>
                         <span class="label-input100">Password</span>
                     </div>
 
 
                     <div class="container-login100-form-btn">
-                        <button class="login100-form-btn">
+                        <button id="inicioSesion" class="login100-form-btn">
 							Inicia Sesión
 						</button>
-                    </div>
-
-                    <div class="text-center p-t-46 p-b-20">
-                        <a href="register.html"><span class="txt2">
-							Regístrate
-						</span></a>
                     </div>
 
                 </form>
@@ -94,6 +89,8 @@
     <script src="vendor/countdowntime/countdowntime.js"></script>
     <!--===============================================================================================-->
     <script src="js/main.js"></script>
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+    <script src="js/login.js"></script>
 
 </body>
 
