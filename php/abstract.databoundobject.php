@@ -113,6 +113,20 @@ abstract class DataBoundObject {
       return $id;
    }
 
+   public function Trabajador($id){
+      $arrayID = array();
+      $query = "SELECT " . $this->strTableName . ".id FROM "  . $this->strTableName . " WHERE trabajador_id = " . $id;
+      $statement = $this->objPDO->prepare($query);
+      $statement->execute();
+      $result = $statement->fetchAll();
+      
+      foreach($result as $row) {
+         $arrayID[] = $row["id"];
+      };
+
+      return $arrayID;
+   }
+
    public function Save() {
        $actualVal = "";
       if (isset($this->ID)) {

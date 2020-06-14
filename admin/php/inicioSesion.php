@@ -18,9 +18,15 @@
      if($usuario->getNombreUsuario() == $_POST['username']){
          if($usuario->getPassword() == $_POST['password']){
             echo "OK";
+            session_start();
+            $_SESSION['usuario'] = $usuario->getNombreUsuario();
+            $_SESSION['rol'] = $usuario->getRolID();
+            $_SESSION['id'] = $usuario->getID();
          }else{
              echo "Usuario o contraseña incorrectos";
          }
      }else{
          echo "Usuario o contraseña incorrectos";
      }
+
+?>

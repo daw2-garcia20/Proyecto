@@ -26,7 +26,7 @@ class Reserva extends DataBoundObject {
                         "completada" => "Completada",
                         "cancelada" => "Cancelada",
                         "servicio_id" => "ServicioID",
-                        "trabajadorId" => "TrabajadorID"));
+                        "trabajador_id" => "TrabajadorID"));
         }
 }
 

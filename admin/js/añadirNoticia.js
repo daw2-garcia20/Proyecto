@@ -1,13 +1,40 @@
-$(document).ready(eventos);
+$(document).ready(function() {
+    $.ajax({
+        "url": "php/compruebaUsuario.php"
+    }).done(function(respuesta) {
+        console.log(respuesta);
+        if (respuesta == "ERROR") {
+            location.href = "login.html";
+        } else {
+            if (respuesta == "Administrador") {
+                eventos();
+            } else {
+                location.href = "agenda.html";
+            }
+
+        }
+    });
+});
 
 var autor = 0;
 
 function eventos() {
+    obtenerInfoUsuario();
     selectorAutores();
     $("#añadirNoticia").click(añadirNoticia);
     $("#autores").change(function() {
         autor = $(this).val();
-    })
+    });
+    $("#cerrarSesion").click(logOut);
+}
+
+function obtenerInfoUsuario() {
+    $.ajax({
+        "url": "php/infoUsuario.php"
+    }).done(function(respuesta) {
+        console.log(respuesta);
+        $("#nombreUsuario").html(respuesta);
+    });
 }
 
 function selectorAutores() {
@@ -35,5 +62,13 @@ function añadirNoticia() {
         url: "php/añadirNoticia.php",
         method: "POST",
         data: noticia
+    });
+}
+
+function logOut() {
+    $.ajax({
+        url: "php/cerrarSesion.php",
+    }).done(function(respuesta, textStatus) {
+        location.href = "login.html";
     });
 }

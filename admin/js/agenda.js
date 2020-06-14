@@ -2,26 +2,28 @@ $(document).ready(function() {
     $.ajax({
         "url": "php/compruebaUsuario.php"
     }).done(function(respuesta) {
-        console.log(respuesta);
         if (respuesta == "ERROR") {
             location.href = "login.html";
         } else {
             if (respuesta == "Administrador") {
-                eventos();
+                location.href = "login.html";
             } else {
-                location.href = "agenda.html";
+                idTrabajador = respuesta;
+                eventos();
             }
 
         }
     });
 });
 
-var categorias = "";
+var servicios = "";
+var trabajadores = "";
 
 function eventos() {
     obtenerInfoUsuario();
-    obtenerCategorias();
     obtenerServicios();
+    obtenerTrabajadores();
+    obtenerReservas();
     editar_eliminar_datatable();
     $("#cerrarSesion").click(logOut);
 }
@@ -39,15 +41,29 @@ function obtenerServicios() {
     $.ajax({
         "url": "php/obtenerServicios.php"
     }).done(function(serviciosPHP) {
-        rellenarTabla(JSON.parse(serviciosPHP));
+        servicios = JSON.parse(serviciosPHP);
     });
 }
 
-function obtenerCategorias() {
+function obtenerTrabajadores() {
     $.ajax({
-        "url": "php/obtenerCategorias.php"
-    }).done(function(categoriasPHP) {
-        categorias = JSON.parse(categoriasPHP);
+        "url": "php/obtenerTrabajadores.php"
+    }).done(function(trabajadoresPHP) {
+        trabajadores = JSON.parse(trabajadoresPHP);
+    });
+}
+
+function obtenerReservas() {
+    var id = {
+        id: idTrabajador
+    }
+    $.ajax({
+        url: "php/obtenerReservasTrabajador.php",
+        method: "POST",
+        data: id
+    }).done(function(reservas) {
+        console.log(reservas);
+        rellenarTabla(JSON.parse(reservas));
     });
 }
 
@@ -73,14 +89,14 @@ function rellenarTabla(datos) {
                 "sortable": true
             },
             {
-                "title": "Precio",
+                "title": "Apellidos",
                 "targets": [2],
                 "visible": true,
                 "searchable": false,
                 "sortable": false
             },
             {
-                "title": "Categoria",
+                "title": "Fecha",
                 "targets": [3],
                 "visible": true,
                 "searchable": true,
@@ -88,28 +104,28 @@ function rellenarTabla(datos) {
             },
 
             {
-                "title": "Descripción",
+                "title": "Hora",
                 "targets": [4],
                 "visible": true,
                 "searchable": true,
                 "sortable": true
             },
             {
-                "title": "Foto",
+                "title": "Servicio",
                 "targets": [5],
                 "visible": true,
                 "searchable": false,
                 "sortable": false
             },
             {
-                "title": "",
+                "title": "Completada",
                 "targets": [6],
                 "visible": true,
                 "searchable": false,
                 "sortable": false
             },
             {
-                "title": "",
+                "title": "Cancelada",
                 "targets": [7],
                 "visible": true,
                 "searchable": false,
@@ -118,6 +134,13 @@ function rellenarTabla(datos) {
             {
                 "title": "",
                 "targets": [8],
+                "visible": true,
+                "searchable": false,
+                "sortable": false
+            },
+            {
+                "title": "",
+                "targets": [9],
                 "visible": true,
                 "searchable": false,
                 "sortable": false
@@ -136,22 +159,34 @@ function rellenarTabla(datos) {
                 }
             },
             {
-                data: "precio",
-                render: function(precio) {
-                    return '<input disabled class="precio form-control position-static" type="text" value="' + precio + '">'
+                data: "apellidos",
+                render: function(apellidos) {
+                    return '<input disabled class="apellidos form-control position-static" type="text" value="' + apellidos + '">'
                 }
             },
             {
-                data: "categoriaId",
-                render: function(categoriaId) {
+                data: "fecha",
+                render: function(fecha) {
+                    return '<input disabled class="fecha form-control position-static" type="text" value="' + fecha + '">'
+                }
+            },
+            {
+                data: "hora",
+                render: function(hora) {
+                    return '<input disabled class="hora form-control position-static" type="text" value="' + hora + '">'
+                }
+            },
+            {
+                data: "servicioId",
+                render: function(servicioId) {
 
-                    var selector = '<select disabled class="categoria form-control">';
+                    var selector = '<select disabled class="servicio form-control">';
 
-                    Object.keys(categorias).forEach(function(key) {
-                        if (categorias[key].id == categoriaId) {
-                            selector += `<option selected value="${categorias[key].id}">${categorias[key].nombre}</option>`;
+                    Object.keys(servicios).forEach(function(key) {
+                        if (servicios[key].id == servicioId) {
+                            selector += `<option selected value="${servicios[key].id}">${servicios[key].nombre}</option>`;
                         } else {
-                            selector += `<option value="${categorias[key].id}">${categorias[key].nombre}</option>`;
+                            selector += `<option value="${servicios[key].id}">${servicios[key].nombre}</option>`;
                         }
                     });
 
@@ -160,15 +195,35 @@ function rellenarTabla(datos) {
                 }
             },
             {
-                data: "descripcion",
-                render: function(descripcion) {
-                    return '<input disabled class="descripcion form-control position-static" type="text" value="' + descripcion + '">'
+                data: "completada",
+                render: function(completada) {
+                    var check = "";
+                    if (completada) {
+                        check = `<div class="form-check text-center">
+                        <input disabled checked class="completada form-check-input position-static largerCheckbox" type="checkbox">
+                        </div>`;
+                    } else {
+                        check = `<div class="form-check text-center">
+                        <input disabled class="completada form-check-input position-static largerCheckbox" type="checkbox">
+                        </div>`;
+                    }
+                    return check;
                 }
             },
             {
-                data: "foto",
-                render: function(foto) {
-                    return '<input disabled class="foto form-control position-static" type="text" value="' + foto + '">'
+                data: "cancelada",
+                render: function(cancelada) {
+                    var check = "";
+                    if (cancelada) {
+                        check = `<div class="form-check text-center">
+                        <input disabled checked class="cancelada form-check-input position-static largerCheckbox" type="checkbox">
+                        </div>`;
+                    } else {
+                        check = `<div class="form-check text-center">
+                        <input disabled class="cancelada form-check-input position-static largerCheckbox" type="checkbox">
+                        </div>`;
+                    }
+                    return check;
                 }
             },
             {
@@ -179,11 +234,6 @@ function rellenarTabla(datos) {
             {
                 "defaultContent": `<div class="text-center">
                                     <i type="button" disabled=true class="guardar boton fas fa-save fa-2x"></i>
-                                </div>`
-            },
-            {
-                "defaultContent": `<div class="text-center">
-                                    <i type="button" class="eliminar boton fas fa-trash fa-2x"></i>
                                 </div>`
             }
         ],
@@ -203,20 +253,14 @@ function editar_eliminar_datatable() {
 
         if (habilitar == 1) {
             $(this).parents("tr").find('.id').attr("disabled", false);
-            $(this).parents("tr").find('.nombre').attr("disabled", false);
-            $(this).parents("tr").find('.precio').attr("disabled", false);
-            $(this).parents("tr").find('.categoria').attr("disabled", false);
-            $(this).parents("tr").find('.descripcion').attr("disabled", false);
-            $(this).parents("tr").find('.foto').attr("disabled", false);
+            $(this).parents("tr").find('.completada').attr("disabled", false);
+            $(this).parents("tr").find('.cancelada').attr("disabled", false);
             $(this).parents("tr").find('.guardar').attr("disabled", false);
             habilitar = 0;
         } else if (habilitar == 0) {
             $(this).parents("tr").find('.id').attr("disabled", true);
-            $(this).parents("tr").find('.nombre').attr("disabled", true);
-            $(this).parents("tr").find('.precio').attr("disabled", true);
-            $(this).parents("tr").find('.categoria').attr("disabled", true);
-            $(this).parents("tr").find('.descripcion').attr("disabled", true);
-            $(this).parents("tr").find('.foto').attr("disabled", true);
+            $(this).parents("tr").find('.completada').attr("disabled", true);
+            $(this).parents("tr").find('.cancelada').attr("disabled", true);
             $(this).parents("tr").find('.guardar').attr("disabled", true);
             habilitar = 1;
         }
@@ -230,48 +274,24 @@ function editar_eliminar_datatable() {
 
             var id = tabla.row($(this).parents("tr")).data();
             id = id.id;
-            var nombre = $(this).parents("tr").find('.nombre').val();
-            var precio = $(this).parents("tr").find('.precio').val();
-            var categoria = $(this).parents("tr").find('.categoria').val();
-            var descripcion = $(this).parents("tr").find('.descripcion').val();
-            var foto = $(this).parents("tr").find('.foto').val()
+            var completada = $(this).parents("tr").find('.completada').prop("checked");
+            var cancelada = $(this).parents("tr").find('.cancelada').prop("checked");
 
-            var servicio = {
-                id: id,
-                nombre: nombre,
-                precio: precio,
-                categoria: categoria,
-                descripcion: descripcion,
-                foto: foto
+            var reserva = {
+                completada: completada,
+                cancelada: cancelada
             }
 
             $.ajax({
-                url: "php/modificarServicio.php",
+                url: "php/modificarReservaTrabajador.php",
                 method: "POST",
-                data: servicio
+                data: reserva
             }).done(function(respuesta) {
                 console.log(respuesta);
                 habilitar = 1;
                 eventos();
             })
         }
-    });
-
-
-    $(tbody).on("click", "i.eliminar", function() {
-        var id = tabla.row($(this).parents("tr")).data();
-        id = id.id;
-
-        var datos = {
-            id: id
-        }
-        $.ajax({
-            url: "php/eliminarServicio.php",
-            method: "POST",
-            data: datos
-        }).done(function(respuesta, textStatus) {
-            eventos();
-        });
     });
 }
 

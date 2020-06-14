@@ -1,13 +1,40 @@
-$(document).ready(eventos);
+$(document).ready(function() {
+    $.ajax({
+        "url": "php/compruebaUsuario.php"
+    }).done(function(respuesta) {
+        console.log(respuesta);
+        if (respuesta == "ERROR") {
+            location.href = "login.html";
+        } else {
+            if (respuesta == "Administrador") {
+                eventos();
+            } else {
+                location.href = "agenda.html";
+            }
+
+        }
+    });
+});
 
 var servicios = "";
 var trabajadores = "";
 
 function eventos() {
+    obtenerInfoUsuario();
     obtenerServicios();
     obtenerTrabajadores();
     obtenerReservas();
     editar_eliminar_datatable();
+    $("#cerrarSesion").click(logOut);
+}
+
+function obtenerInfoUsuario() {
+    $.ajax({
+        "url": "php/infoUsuario.php"
+    }).done(function(respuesta) {
+        console.log(respuesta);
+        $("#nombreUsuario").html(respuesta);
+    });
 }
 
 function obtenerServicios() {
@@ -338,5 +365,13 @@ function editar_eliminar_datatable() {
         }).done(function(respuesta, textStatus) {
             eventos();
         });
+    });
+}
+
+function logOut() {
+    $.ajax({
+        url: "php/cerrarSesion.php",
+    }).done(function(respuesta, textStatus) {
+        location.href = "login.html";
     });
 }
